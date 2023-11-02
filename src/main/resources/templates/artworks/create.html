@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body class="container">
+
+    <header th:replace="fragments :: header"></header>
+
+<form method="post" action="/artworks/create">
+    <div class="form-group">
+        <label>Art
+            <input type="text" name="artworkName" class="form-control">
+        </label>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Add Artwork" class="btn btn-success">
+    </div>
+</form>
+
+</body>
+</html>

@@ -1,50 +1,48 @@
 package com.odnt.thisisart.controllers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
-@ResponseBody
-@RequestMapping("art")
+@RequestMapping("artworks/")
 public class ArtController {
 
-    //request at /welcome
-//    @GetMapping("welcome")
-//    @ResponseBody
-//    public String helloArt() {
-//        return "Welcome to 'This is Art'";
+    private static List<String> artworks = new ArrayList<>();
+
+    @GetMapping()
+    public String displayAllArt(Model model){
+        model.addAttribute("title", "All Art");
+       model.addAttribute("artworks", artworks);
+        return "artworks/index";
+    }
+
+
+    // lives at artworks/create
+    @GetMapping("create")
+    public String renderAddArtworks(Model model){
+        model.addAttribute("title", "Add Artwork");
+        return "artworks/create";
+    }
+
+    @PostMapping("create")
+    public String addNewArtwork(@RequestParam String artworkName) {
+        artworks.add(artworkName);
+        return "redirect:";
+    }
+
+//    @GetMapping("art-works")
+//    public String artWorkList(Model model) {
+//        List<String> artWorks = new ArrayList<>();
+//        artWorks.add("Wally");
+//        artWorks.add("Mom");
+//        artWorks.add("Nature");
+//        model.addAttribute("artWorks", artWorks);
+//        return "art-list";
 //    }
-
-    //lives at /art/thanks
-    @GetMapping("thanks")
-    public String thanksArt() {
-        return "Thanks for visiting 'This is Art'";
-    }
-
-
-    //lives at /art/welcome
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
-    public String welcomeWithQueryParam(@RequestParam String name) {
-        return "Welcome to Your website " + name + "!";
-    }
-
-    //handles requests of the form /welcome/Charlie
-    @GetMapping("{name}")
-    public String welcomeWithPathParam(@PathVariable String name){
-        return "Welcome to Your website " + name + "!";
-    }
-
-    @GetMapping("form")
-    public String welcomeForm() {
-        return "<html>" +
-                "<body>" +
-                "<form action='welcome' method='post'>" +//submit a request to /welcome
-                "<input type='text' name='name'>" +
-                "<input type='submit' value='Welcome'>" +
-                "</form>" +
-                "</body>" +
-                "</html>";
-    }
 
 
 
